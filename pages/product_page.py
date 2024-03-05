@@ -5,7 +5,7 @@ import math
 import time
 
 class ProductPage(BasePage):
-    def should_be_able_to_add(self):
+    def add_to_cart(self):
         self.browser.find_element(*ProductPageLocators.ADD_BUTTON).click()
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
@@ -25,13 +25,19 @@ class ProductPage(BasePage):
 
     def name_of_product_correct(self):
         name = self.browser.find_element(*ProductPageLocators.NAME).text
-        self.should_be_able_to_add()
         self.solve_quiz_and_get_code()
+        self.add_to_cart()
         alert_name = self.browser.find_element(*ProductPageLocators.ALERT_NAME).text
         assert name == alert_name, "Name incorrect, mismatch between name and alert name"
     def price_of_product_correct(self):
         price = self.browser.find_element(*ProductPageLocators.PRICE).text
-        self.should_be_able_to_add()
         self.solve_quiz_and_get_code()
+        self.add_to_cart()
         alert_price = self.browser.find_element(*ProductPageLocators.ALERT_PRICE).text
         assert price == alert_price, "Price incorrect, mismatch between price and alert_price"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE),"Success message is presented, but should not be"
+
+    def success_message_should_disappear(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is presented, but should not be"
