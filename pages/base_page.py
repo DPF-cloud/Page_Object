@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from .locators import BasePageLocators
 
 
-class BasePage():
+class BasePage:
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
@@ -23,13 +23,14 @@ class BasePage():
     def go_to_basket_page(self):
         basket_link = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
         basket_link.click()
+
     def open(self):
         self.browser.get(self.url)
 
     def is_element_present(self, how, what):
         try:
             self.browser.find_element(how, what)
-        except (NoSuchElementException):
+        except NoSuchElementException:
             return False
         return True
 
@@ -43,7 +44,7 @@ class BasePage():
 
     def is_disappeared(self, how, what, timeout=4):
         try:
-            WebDriverWait(self.browser, timeout, 1, TimeoutException).\
+            WebDriverWait(self.browser, timeout, 1, TimeoutException). \
                 until_not(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return False
@@ -51,5 +52,5 @@ class BasePage():
         return True
 
     def should_be_authorized_user(self):
-        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented, probably unauthorised user"
-
+        assert self.is_element_present(
+            *BasePageLocators.USER_ICON), "User icon is not presented, probably unauthorised user"

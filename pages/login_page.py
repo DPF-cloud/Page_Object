@@ -5,7 +5,6 @@ from .locators import BasePageLocators
 from .locators import LoginPageLocators
 
 
-
 class LoginPage(BasePage):
     def should_be_login_page(self):
         self.should_be_login_url()
@@ -21,11 +20,13 @@ class LoginPage(BasePage):
         password_input.send_keys(password)
         password_input2 = self.browser.find_element(*LoginPageLocators.PASSWORD_REGISTER_FORM_2)
         password_input2.send_keys(password)
-        submit_button = self.browser.find_element(*LoginPageLocators.REGISTER_SUBMIT_BUTTON )
+        submit_button = self.browser.find_element(*LoginPageLocators.REGISTER_SUBMIT_BUTTON)
         submit_button.click()
 
     def should_be_login_url(self):
-        assert BasePageLocators.LOGIN_URL[0] in self.browser.current_url, f"Login url is not presented {BasePageLocators.LOGIN_URL} in {self.browser.current_url}"
+        assert BasePageLocators.LOGIN_URL[
+                   0] in self.browser.current_url, (f"Login url is not presented {BasePageLocators.LOGIN_URL} in"
+                                                    f" {self.browser.current_url}")
 
     def should_be_login_form(self):
         assert self.is_element_present(*LoginPageLocators.LOGIN_FORM), "Login form is not presented"
