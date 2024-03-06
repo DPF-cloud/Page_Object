@@ -14,7 +14,7 @@ class TestLoginFromMainPage:
         page.should_be_login_link()
 
     @pytest.mark.need_review
-    def test_guest_can_go_to_login_page(self, browser):
+    def test_guest_can_go_to_login_page_from_product_page(self, browser):
         url = ProductPageLocators.PRODUCT_URL
         page = ProductPage(browser, url)
         page.open()
